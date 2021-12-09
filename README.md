@@ -5,5 +5,5 @@
 <h2> 2. 사망 시, 펫 비행기도 비활성화 하는 기능 추가 구현 
 <h2> 3. 레벨 디자인을 통해 스테이지 2 까지 구현 완료. 
  
-<
+<br>
 ![shoot](https://user-images.githubusercontent.com/82301801/145324451-a2af2cd8-4cbd-4cd3-9acc-12ddfff31527.JPG)
