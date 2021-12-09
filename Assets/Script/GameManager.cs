@@ -7,8 +7,14 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
+    public int stage;
+    public Animator StageAnim;
+    public Animator ClearAnim;
+    public Animator FadeAnim;
+    public Transform playerPos;
     public string[] enemyObjs;
     public Transform[] spawnPoints;
+
 
     public float NextSpawnDelay;
     public float curSpawnDelay;
@@ -29,10 +35,41 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         spawnList = new List<Spawn>();
-        enemyObjs = new string[] { "enemyS", "enemyM", "enemyL" };
+        enemyObjs = new string[] { "enemyS", "enemyM", "enemyL", "enemyB" };
         ReadSpawnFile();
+        StageStart();
     }
 
+    public void StageStart()
+    {
+        // #. Stgae UI 
+        StageAnim.SetTrigger("On");
+        StageAnim.GetComponent<Text>().text = "STAGE " + stage + "\nSTART";
+        ClearAnim.GetComponent<Text>().text = "STAGE " + stage + "\nCLEAR";
+
+        ReadSpawnFile();
+
+        // # Fade In
+        FadeAnim.SetTrigger("In");
+    }
+    public void StageEnd()
+    {
+        // #. Clear UI
+        ClearAnim.SetTrigger("On");
+
+        // # Fade Out
+        FadeAnim.SetTrigger("Out");
+
+        // # Player Repos 
+        player.transform.position = playerPos.position;
+
+        stage++;
+        if (stage > 2)
+            Invoke("GameOver", 6);
+        else
+        Invoke("StageStart", 5);
+
+    }
 
 
     void Update()
@@ -59,14 +96,13 @@ public class GameManager : MonoBehaviour
         spawnEnd = false;
 
         // # 리스폰 읽기
-        TextAsset textFile = Resources.Load("Stage0") as TextAsset; // text파일이 아니면 null처리 
+        TextAsset textFile = Resources.Load("Stage "+ stage.ToString()) as TextAsset; // text파일이 아니면 null처리 
         StringReader stringReader = new StringReader(textFile.text); // string 읽기 
 
         
         while(stringReader != null)
         {
             string line = stringReader.ReadLine();
-            Debug.Log(line);
 
             if (line == null)
                 break;
@@ -101,8 +137,11 @@ public class GameManager : MonoBehaviour
             case "L":
                 enemyIndex = 2;
                 break;
+            case "B":
+                enemyIndex = 3;
+                break;
         }
-        Debug.Log(enemyIndex);
+
         int enemyPoint = spawnList[spawnIndex].point;
         //int ranEnemy = Random.Range(0, 3);
         //int ranPoint = Random.Range(0, 9);
@@ -115,7 +154,9 @@ public class GameManager : MonoBehaviour
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
         Enemy enemyLogic = enemy.GetComponent<Enemy>();
         enemyLogic.player = player;
+        enemyLogic.gameManager = this;
         enemyLogic.objectManager = objectManager;
+
 
         if(enemyPoint == 5 || enemyPoint == 6){
             enemy.transform.Rotate(Vector3.back * 90);
@@ -195,6 +236,16 @@ public class GameManager : MonoBehaviour
         Player playerLogic = player.GetComponent<Player>();
         playerLogic.power = 1;
         Invoke("RespawnPlayerExe", 2f);
+    }
+
+    // # explosion 불러오는 함수 
+    public void callExplosion(Vector3 pos, string type)
+    {
+        GameObject explosion = objectManager.MakeObj("explosion");
+        Explosion explosionLogic = explosion.GetComponent<Explosion>();
+
+        explosion.transform.position = pos;
+        explosionLogic.StartExplosion(type);
     }
     void RespawnPlayerExe()
     {

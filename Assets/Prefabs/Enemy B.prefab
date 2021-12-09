@@ -120,16 +120,17 @@ MonoBehaviour:
   enemyScore: 5000
   enemyname: B
   speed: 1.5
-  health: 1000
+  health: 100
   sprites: []
-  bulletObjA: {fileID: 0}
-  bulletObjB: {fileID: 0}
-  itemCoin: {fileID: 0}
-  itemBoom: {fileID: 0}
-  itemPower: {fileID: 0}
+  bulletObjA: {fileID: 4850248427740944472, guid: 31556965dbdfb704690e150b9a78829e, type: 3}
+  bulletObjB: {fileID: 4850248427740944472, guid: bead450d2e52ce147bb7a937ddae3125, type: 3}
+  itemCoin: {fileID: 3216525677682424054, guid: ae2cd28bd8ed4db439bc03efae88f8c1, type: 3}
+  itemBoom: {fileID: 5671328102122660054, guid: bb907de494c27d4458357d9d4f07f7d2, type: 3}
+  itemPower: {fileID: 9207892869411693551, guid: e67a797d5453be241a18777da83b0379, type: 3}
   maxShotDelay: 0
   curShotDelay: 0
   player: {fileID: 0}
+  gameManager: {fileID: 0}
   objectManager: {fileID: 0}
   patternIndex: -1
   curPatternCount: 0

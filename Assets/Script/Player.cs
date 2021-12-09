@@ -9,11 +9,9 @@ public class Player : MonoBehaviour
     public int maxpower;
     public int boom;
     public int maxboom;
-    
-
+   
     public float maxShotDelay; // 발사 딜레이 
     public float curShotDelay; 
-
 
     public int life;  // 목숨 
     public int score; // 점수
@@ -40,6 +38,7 @@ public class Player : MonoBehaviour
     Animator anim;
 
     public GameObject[] follwers;
+    public bool Overwelming;
 
     // Start is called before the first frame update
 
@@ -47,9 +46,30 @@ public class Player : MonoBehaviour
     {
         // 애니메이션 불러오기 
         anim = GetComponent<Animator>();
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>(); 
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
     }
 
+    void OnEnable()
+    {
+        welming();
+        Invoke("welming", 3);
+    }
+
+    void welming()
+    {
+        Overwelming = !Overwelming;
+
+        if (Overwelming)
+        {
+            Overwelming = true;
+            spriteRenderer.color = new Color(1, 1, 1, 0.5f);
+        }
+        else
+        {
+            Overwelming = false;
+            spriteRenderer.color = new Color(1, 1, 1, 1);
+        }
+    }
 
 
     void Update()
@@ -116,7 +136,7 @@ public class Player : MonoBehaviour
             if (enemiesL[index].activeSelf)
             {
                 Enemy enemyLogic = enemiesL[index].GetComponent<Enemy>();
-                enemyLogic.OnHit(1000);
+                enemyLogic.OnHit(200);
             }
         }
 
@@ -257,7 +277,7 @@ public class Player : MonoBehaviour
         }
         else if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyBullet")
         {
-            if (isRespawnTime)
+            if (Overwelming)
                 return; 
 
             if (isHit)
@@ -266,6 +286,7 @@ public class Player : MonoBehaviour
             isHit = true;
             life--;
             gameManager.UpdateLifeIcon(life);
+            gameManager.callExplosion(transform.position, "P");
 
             if(life == 0)
             {

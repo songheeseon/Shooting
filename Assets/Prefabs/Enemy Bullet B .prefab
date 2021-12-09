@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c03755316d78644e9b9565074cd1a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 2
+  dmg: 1
+  isRotate: 0
 --- !u!58 &1633825751245319322
 CircleCollider2D:
   m_ObjectHideFlags: 0

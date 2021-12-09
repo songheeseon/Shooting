@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,19 +53,24 @@
     <UnityVersion>2020.1.11f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Script\BackGround.cs" />
     <Compile Include="Assets\Vertical 2D Shooting BE4\ReadMe\Scripts\ReadmeBE4.cs" />
+    <Compile Include="Assets\Script\Follower.cs" />
     <Compile Include="Assets\Script\Bullet.cs" />
+    <Compile Include="Assets\Script\Explosion.cs" />
     <Compile Include="Assets\Script\Item.cs" />
     <Compile Include="Assets\Script\ObjectManager.cs" />
     <Compile Include="Assets\Script\Spawn.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
-    <Compile Include="Assets\Script\Follower.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Resources\Stage0.txt" />
+    <None Include="Assets\Resources\Stage 1.txt" />
+    <None Include="Assets\Resources\Stage 2.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

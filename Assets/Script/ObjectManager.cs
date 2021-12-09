@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
+    public GameObject enemyBPrefab;
     public GameObject enemyLPrefab;
     public GameObject enemyMPrefab;
     public GameObject enemySPrefab;
@@ -15,6 +16,9 @@ public class ObjectManager : MonoBehaviour
     public GameObject bulletEnemyAPrefab;
     public GameObject bulletEnemyBPrefab;
     public GameObject bulletFollowerPrefab;
+    public GameObject bulletBossAPrefab;
+    public GameObject bulletBossBPrefab;
+    public GameObject explosionPrefab;
 
 
     GameObject[] enemyL;
@@ -30,6 +34,10 @@ public class ObjectManager : MonoBehaviour
     GameObject[] bulletEnemyA;
     GameObject[] bulletEnemyB;
     GameObject[] bulletFollower;
+    GameObject[] bulletBossA;
+    GameObject[] bulletBossB;
+    GameObject[] enemyB;
+    GameObject[] explosion;
 
 
     GameObject[] targetPool;
@@ -48,6 +56,12 @@ public class ObjectManager : MonoBehaviour
         bulletEnemyA = new GameObject[100];
         bulletEnemyB = new GameObject[100];
         bulletFollower = new GameObject[100];
+        bulletBossA = new GameObject[200];
+        bulletBossB = new GameObject[300];
+
+        enemyB = new GameObject[1];
+        explosion = new GameObject[30];
+
 
         Generate();
     }
@@ -122,6 +136,30 @@ public class ObjectManager : MonoBehaviour
             bulletFollower[index] = Instantiate(bulletFollowerPrefab);
             bulletFollower[index].SetActive(false);
         }
+
+        for (int index = 0; index < bulletBossA.Length; index++)
+        {
+            bulletBossA[index] = Instantiate(bulletBossAPrefab);
+            bulletBossA[index].SetActive(false);
+        }
+
+        for (int index = 0; index < bulletBossB.Length; index++)
+        {
+            bulletBossB[index] = Instantiate(bulletBossBPrefab);
+            bulletBossB[index].SetActive(false);
+        }
+
+        for (int index = 0; index < enemyB.Length; index++)
+        {
+            enemyB[index] = Instantiate(enemyBPrefab);
+            enemyB[index].SetActive(false);
+        }
+
+        for (int index = 0; index < explosion.Length; index++)
+        {
+            explosion[index] = Instantiate(explosionPrefab);
+            explosion[index].SetActive(false);
+        }
     }
 
     public GameObject MakeObj(string type)
@@ -171,6 +209,22 @@ public class ObjectManager : MonoBehaviour
 
             case "bulletFollower":
                 targetPool = bulletFollower;
+                break;
+
+            case "bulletBossA":
+                targetPool = bulletBossA;
+                break;
+
+            case "bulletBossB":
+                targetPool = bulletBossB;
+                break;
+
+            case "enemyB":
+                targetPool = enemyB;
+                break;
+
+            case "explosion":
+                targetPool = explosion;
                 break;
 
         }
@@ -233,10 +287,28 @@ public class ObjectManager : MonoBehaviour
             case "bulletFollower":
                 targetPool = bulletFollower;
                 break;
+
+            case "bulletBossA":
+                targetPool = bulletBossA;
+                break;
+
+            case "bulletBossB":
+                targetPool = bulletBossB;
+                break;
+
+            case "enemyB":
+                targetPool = enemyB;
+                break;
+
+            case "explosion":
+                targetPool = explosion;
+                break;
         }
 
         return targetPool; 
     }
+
+
 }
 
 

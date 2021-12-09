@@ -18,7 +18,7 @@ public class BackGround : MonoBehaviour
     {
 
         viewHeight = Camera.main.orthographicSize * 2; // 카메라의 값 x 2를 하면 높이가 나옴 
-        Debug.Log(viewHeight);
+
     }
 
     // Update is called once per frame
@@ -30,18 +30,19 @@ public class BackGround : MonoBehaviour
 
         if (sprites[endIndex].position.y < viewHeight*(-1)) 
         {
-            Debug.Log("조건은만족");
-
             // Sprite 다시 사용
             Vector3 backSpritePos = sprites[startIndex].localPosition;
             Vector3 frontSpritePos = sprites[endIndex].localPosition;
 
             sprites[endIndex].transform.localPosition = backSpritePos + Vector3.up * viewHeight;
 
+            
             // Cursor 인덱스 체인지 
             int startIndexSave = startIndex;
             startIndex = endIndex;
-            endIndex = (startIndexSave - 1 == -1) ? sprites.Length - 1 : startIndexSave - 1; // ? 뭔코드여 도대체 
+            endIndex = (startIndexSave-1 == -1) ? sprites.Length - 1 : startIndexSave - 1;
+            Debug.Log(startIndexSave);
+
         }
     }
 }
